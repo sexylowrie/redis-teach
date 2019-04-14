@@ -245,3 +245,7 @@ repl-diskless-sync yes
 ![replication16.png](./images/replication16.png)
 
 **同样的在Slave01断开重新连接之后，只进行了局部复制**
+
+#### 附录
+
+配置详解以演示配置见：[https://github.com/sexylowrie/redis-teach](https://github.com/sexylowrie/redis-teach)
