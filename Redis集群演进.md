@@ -309,6 +309,11 @@ appendonly yes
 ```
 --replicas 1 表示我们希望给每个主节点创建一个从节点
 
+如果你的Redis版本比较新的话，redis-trib.rb 管理集群的功能被redis-cli替代了；可以使用如下命令，则不需要依赖Ruby环境
+```
+./src/redis-cli --cluster create 127.0.0.1:6379 127.0.0.1:6380 127.0.0.1:6381 127.0.0.1:6382 127.0.0.1:6383 127.0.0.1:6384 --cluster-replicas 1
+```
+
 集群创建成功会输出
 ```
 [OK] All 16384 slots covered
