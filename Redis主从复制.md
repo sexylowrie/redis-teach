@@ -189,31 +189,43 @@ replicaof 127.0.0.1 6379
 ##### 验证Disk全量复制
 
 1.首先按照Master配置文件启动Master节点，并写入部分数据
+
 ![replication01.png](./images/replication01.png)
 
 2.按照Slave01配置文件启动Slave01节点，观察日志
+
 ![replication02.png](./images/replication02.png)
 
 3.Master输出日志，以及Master目录下文件
+
 ![replication03.jpg](./images/replication03.jpg)
+
 ![replication04.png](./images/replication04.png)
+
 **Master创建子进程保存RDB文件，同步RDB文件给副本节点**
 
 4.Slave01输出日志，以及Slave01目录下文件
+
 ![replication05.png](./images/replication05.png)
+
 ![replication06.png](./images/replication06.png)
+
 **进行全量复制，接收RDB文件并加载**
 
 ##### 验证Disk局部复制
 
 1.查看默认缓冲区大小以及缓冲区释放时间
+
 ![replication07.png](./images/replication07.png)
 
 2.断开Slave01节点，并在Master写入写数据
+
 ![replication071.png](./images/replication071.png)
 
 3.重新启动slave01节点，并关注Master和Slave01日志，**注意在缓冲区释放时间之内**
+
 ![replication08.png](./images/replication08.png)
+
 ![replication09.png](./images/replication09.png)
 
 **我们发现在Slave01断开重新连接之后，只进行了局部复制**
@@ -227,11 +239,15 @@ replicaof 127.0.0.1 6379
 repl-diskless-sync yes
 ```
 1.首先按照新的Master配置文件启动Master节点，并写入部分数据
+
 2.按照Slave01配置文件启动Slave01节点，观察Master日志
+
 ![replication10.png](./images/replication10.png)
-![replication11.png](./images/replication11.png)
+
 3.观察Slave01日志
+
 ![replication12.png](./images/replication12.png)
+
 ![replication13.png](./images/replication13.png)
 
 我们发现Master没有额外创建RDB文件，Slave01接收成功后在其目录下有RDB文件，并且也是全量拷贝。
@@ -239,9 +255,13 @@ repl-diskless-sync yes
 ##### 验证Diskless局部复制
 
 1.断开Slave01节点，并在Master写入写数据
+
 ![replication14.png](./images/replication14.png)
-2.3.重新启动slave01节点，并关注Master和Slave01日志，**注意在缓冲区释放时间之内**
+
+2.重新启动slave01节点，并关注Master和Slave01日志，**注意在缓冲区释放时间之内**
+
 ![replication15.png](./images/replication15.png)
+
 ![replication16.png](./images/replication16.png)
 
 **同样的在Slave01断开重新连接之后，只进行了局部复制**
